@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機場北消防局 A隊 - 制服更換及申請系統</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #8b0000; 
+            color: #ffffff; 
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #111111;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        header .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffcc00; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header .crew-badge {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border: 1px solid #fff;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #111111 0%, #4a0000 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .form-container {
+            background: rgba(17, 17, 17, 0.95);
+            border: 1px solid #ffcc00;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .form-section h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .input-field input, .input-field select {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+
+        /* 項目網格：調整為更寬的版面以容納碼數欄位 */
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
+        }
+
+        .item-row {
+            background: #222;
+            padding: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ff4d4d;
+            gap: 10px;
+        }
+
+        .item-name {
+            font-size: 0.95rem;
+            color: #eee;
+            flex: 1; /* 讓名字佔據剩餘空間 */
+        }
+
+        .item-inputs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-qty {
+            padding: 6px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .item-size {
+            padding: 6px;
+            background: #2a2a2a;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 4px;
+            width: 80px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .item-size::placeholder {
+            color: #777;
+        }
+
+        .limit-hint {
+            font-size: 0.85rem;
+            color: #ff4d4d;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            background: #ff4d4d;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(255,77,77,0.3);
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #cc0000;
+            color: #ffcc00;
+        }
+
+        footer {
+            background-color: #111111;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            border-top: 2px solid #ffcc00;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>🛩️ 機場北消防局</span>
+            <span class="crew-badge">A 隊專用</span>
+        </div>
+        <div style="font-weight: bold; color: #ffcc00;">制服及裝備更換登記表</div>
+    </header>
+
+    <section class="hero">
+        <h1>A 隊物資申報與更換輪候系統</h1>
+        <p>請對照實體表格填寫資訊。衣服類每項最多 2 件，鞋裝類每項最多 1 對/個。</p>
+    </section>
+
+    <div class="container">
+        <form class="form-container" id="uniformForm" onsubmit="handleSubmit(event)">
+            
+            <div class="form-section">
+                <h3>👤 1. 申報人資料</h3>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="rank">職級 (Rank)</label>
+                        <select id="rank" required>
+                            <option value="">-- 請選擇職級 --</option>
+                            <option value="ADO">助理消防區長 (ADO)</option>
+                            <option value="SSO">高級消防隊長 (SSO)</option>
+                            <option value="PFn">總隊目 (PFn)</option>
+                            <option value="SFn">隊目 (SFn)</option>
+                            <option value="Fn">隊員 (Fn)</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="serialNum">個人編號 (Serial No.)</label>
+                        <input type="text" id="serialNum" placeholder="例如: 13754" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="name">姓名 (Name)</label>
+                        <input type="text" id="name" placeholder="英文/中文姓名" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>👕 2. 衣物類更換 (每項最多 2 件)</h3>
+                <div class="limit-hint">💡 填寫數量後，請務必輸入對應的碼數（如: M, L, 39, 41 等）</div>
+                <div class="item-grid">
+                    <div class="item-row">
+                        <span class="item-name">二級長袖襯衫</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_1">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_1">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">二級短袖襯衫</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_2">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_2">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">藍斜西褲</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_3">
+                            <input type="text" class="item-size" placeholder="腰圍" id="size_3">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">工作汗衣</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_4">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_4">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">藍色運動襯衫 (背心)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_5">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_5">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">藍色運動襯衫 (長袖)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_6">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_6">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">運動短褲</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_7">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_7">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">冬服 (一級制服恤衫)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_8">
+                            <input type="text" class="item-size" placeholder="領圍" id="size_8">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">冬毛衣 (冬冷衫)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_9">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_9">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">備用袋 (綠色)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_10">
+                            <input type="text" class="item-size" placeholder="數量" id="size_10" value="N/A" readonly style="background:#444; color:#aaa;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>🥾 3. 鞋類及防護裝備類 (每項最多 1 對/個)</h3>
+                <div class="limit-hint">💡 鞋類請填寫鞋號（如: 8, 9, 42 等），裝備請填寫對應規格或填「要」</div>
+                <div class="item-grid">
+                    <div class="item-row">
+                        <span class="item-name">白鞋</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_11">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_11">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">跑鞋</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_12">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_12">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">消防膠靴</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_13">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_13">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">馬皮鞋</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_14">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_14">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">抗火手套</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_15">
+                            <input type="text" class="item-size" placeholder="手掌碼" id="size_15">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">防爆電筒</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_16">
+                            <input type="text" class="item-size" placeholder="備註" id="size_16">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">攀山手套</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_17">
+                            <input type="text" class="item-size" placeholder="手掌碼" id="size_17">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">手提工具袋 (橙色)</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_18">
+                            <input type="text" class="item-size" placeholder="備註" id="size_18">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>📝 4. 其他特殊申報或備註</h3>
+                <div class="input-field">
+                    <input type="text" id="otherRemark" placeholder="若有其他特殊需求，請在此填寫...">
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">確認並提交登記（A隊）</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 機場消防隊 (AFC) - 機場北消防局 ANFS A-Crew. 限制數量與碼數優化版.</p>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); 
+            
+            const rank = document.getElementById('rank').value;
+            const serialNum = document.getElementById('serialNum').value;
+            const name = document.getElementById('name').value;
+            
+            // 檢查機制：如果有填數量，就必須填寫碼數
+            for (let i = 1; i <= 18; i++) {
+                const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
+                const size = document.getElementById(`size_${i}`).value.trim();
+                
+                if (qty > 0 && size === "") {
+                    alert("⚠️ 請檢查：您已選擇了物品數量，但未填寫對應的碼數或腰圍！");
+                    document.getElementById(`size_${i}`).focus();
+                    return; // 攔截表單，不讓提交
+                }
+            }
+            
+            alert(`【A隊登記成功】\n職級: ${rank}\n編號: ${serialNum}\n姓名: ${name}\n\n已成功驗證限額與碼數！`);
+        }
+    </script>
+</body>
+</html>

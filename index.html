@@ -2,81 +2,88 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>機場北消防局 A隊 - 制服更換及申請系統</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent; /* 移除手機點擊時的藍色陰影 */
         }
 
         body {
             background-color: #8b0000; 
             color: #ffffff; 
-            line-height: 1.6;
+            line-height: 1.5;
+            padding-bottom: 20px;
         }
 
         header {
             background-color: #111111;
             color: #fff;
-            padding: 1rem 2rem;
+            padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* 手機版導覽列上下排 */
             align-items: center;
+            gap: 5px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             border-bottom: 3px solid #ffcc00;
+            text-align: center;
         }
 
         header .logo {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #ffcc00; 
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
         }
 
         header .crew-badge {
             background-color: #ff4d4d;
             color: white;
-            padding: 3px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border: 1px solid #fff;
         }
 
         .hero {
             background: linear-gradient(135deg, #111111 0%, #4a0000 100%);
-            padding: 40px 20px;
+            padding: 30px 15px;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
         }
 
         .hero p {
             color: #ffcc00;
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .container {
             max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 15px auto;
+            padding: 0 10px; /* 手機邊距縮小，留更多空間給內容 */
         }
 
         .form-container {
             background: rgba(17, 17, 17, 0.95);
             border: 1px solid #ffcc00;
-            padding: 30px;
+            padding: 20px 15px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
@@ -90,13 +97,16 @@
         .form-section h3 {
             color: #ffcc00;
             margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
+            border-left: 4px solid #ffcc00;
+            padding-left: 8px;
         }
 
+        /* 個人資料欄位手機版排版 */
         .input-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .input-field {
@@ -110,13 +120,15 @@
             font-size: 0.95rem;
         }
 
+        /* 加大手機輸入框，更好點擊 */
         .input-field input, .input-field select {
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 6px;
             border: 1px solid #444;
             background-color: #222;
             color: #fff;
             font-size: 1rem;
+            -webkit-appearance: none; /* 移除 iOS 內建陰影 */
         }
 
         .input-field input:focus, .input-field select:focus {
@@ -124,11 +136,11 @@
             outline: none;
         }
 
-        /* 項目網格：調整為更寬的版面以容納碼數欄位 */
+        /* 物品清單網格：預設手機是單欄直排 */
         .item-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .item-row {
@@ -145,7 +157,8 @@
         .item-name {
             font-size: 0.95rem;
             color: #eee;
-            flex: 1; /* 讓名字佔據剩餘空間 */
+            flex: 1;
+            word-break: break-all; /* 防止長文字爆開 */
         }
 
         .item-inputs {
@@ -154,43 +167,47 @@
             gap: 8px;
         }
 
+        /* 針對手機加大加寬的數字和碼數框 */
         .item-qty {
-            padding: 6px;
+            padding: 10px 5px;
             background: #333;
             color: #fff;
             border: 1px solid #555;
-            border-radius: 4px;
-            width: 60px;
+            border-radius: 6px;
+            width: 65px;
             text-align: center;
+            font-size: 1rem;
         }
 
         .item-size {
-            padding: 6px;
+            padding: 10px 5px;
             background: #2a2a2a;
             color: #fff;
             border: 1px solid #666;
-            border-radius: 4px;
-            width: 80px;
+            border-radius: 6px;
+            width: 85px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .item-size::placeholder {
-            color: #777;
+            color: #666;
         }
 
         .limit-hint {
             font-size: 0.85rem;
             color: #ff4d4d;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: bold;
+            line-height: 1.4;
         }
 
+        /* 超大方便按的提交按鈕 */
         .submit-btn {
             background: #ff4d4d;
             color: #ffffff;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 16px;
+            border-radius: 6px;
             font-weight: bold;
             font-size: 1.1rem;
             text-align: center;
@@ -199,7 +216,7 @@
             width: 100%;
             box-shadow: 0 4px 10px rgba(255,77,77,0.3);
             transition: background 0.3s;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .submit-btn:hover {
@@ -211,10 +228,47 @@
             background-color: #111111;
             color: #888;
             text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
+            padding: 15px;
+            font-size: 0.8rem;
             border-top: 2px solid #ffcc00;
-            margin-top: 60px;
+            margin-top: 40px;
+        }
+
+        /* ==========================================================================
+           💻 電腦與平板大螢幕適應樣式 (CSS Media Query)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row; /* 電腦版改回橫排 */
+                padding: 1rem 2rem;
+            }
+            header .logo {
+                width: auto;
+                justify-content: flex-start;
+                font-size: 1.4rem;
+            }
+            .hero {
+                padding: 40px 20px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .form-container {
+                padding: 30px;
+            }
+            .input-group {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); /* 個人資料變三欄 */
+                gap: 20px;
+            }
+            .item-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 物品清單變左右兩欄 */
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -225,12 +279,12 @@
             <span>🛩️ 機場北消防局</span>
             <span class="crew-badge">A 隊專用</span>
         </div>
-        <div style="font-weight: bold; color: #ffcc00;">制服及裝備更換登記表</div>
+        <div style="font-weight: bold; color: #ffcc00; font-size: 0.95rem;">制服及裝備更換登記表</div>
     </header>
 
     <section class="hero">
-        <h1>A 隊物資申報與更換輪候系統</h1>
-        <p>請對照實體表格填寫資訊。衣服類每項最多 2 件，鞋裝類每項最多 1 對/個。</p>
+        <h1>A 隊物資申報系統</h1>
+        <p>衣服每項最多 2 件，鞋裝最多 1 對/個。</p>
     </section>
 
     <div class="container">
@@ -245,9 +299,9 @@
                             <option value="">-- 請選擇職級 --</option>
                             <option value="ADO">助理消防區長 (ADO)</option>
                             <option value="SSO">高級消防隊長 (SSO)</option>
-                            <option value="PFn">總隊目 (PFn)</option>
-                            <option value="SFn">隊目 (SFn)</option>
-                            <option value="Fn">隊員 (Fn)</option>
+                            <option value="PFn">總隊目 / 代理消防隊目 (PFn)</option>
+                            <option value="SFn">消防隊目 (SFn)</option>
+                            <option value="Fn">消防隊員 (Fn)</option>
                         </select>
                     </div>
                     <div class="input-field">
@@ -262,7 +316,7 @@
             </div>
 
             <div class="form-section">
-                <h3>👕 2. 衣物類更換 (每項最多 2 件)</h3>
+                <h3>👕 2. 衣物類更換 (最多 2 件)</h3>
                 <div class="limit-hint">💡 填寫數量後，請務必輸入對應的碼數（如: M, L, 39, 41 等）</div>
                 <div class="item-grid">
                     <div class="item-row">
@@ -339,8 +393,8 @@
             </div>
 
             <div class="form-section">
-                <h3>🥾 3. 鞋類及防護裝備類 (每項最多 1 對/個)</h3>
-                <div class="limit-hint">💡 鞋類請填寫鞋號（如: 8, 9, 42 等），裝備請填寫對應規格或填「要」</div>
+                <h3>🥾 3. 鞋類及防護裝備類 (最多 1 對/個)</h3>
+                <div class="limit-hint">💡 鞋類請填鞋號（如: 8, 42），裝備請填寫對應規格或填「要」</div>
                 <div class="item-grid">
                     <div class="item-row">
                         <span class="item-name">白鞋</span>
@@ -413,7 +467,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 機場消防隊 (AFC) - 機場北消防局 ANFS A-Crew. 限制數量與碼數優化版.</p>
+        <p>&copy; 2026 機場消防隊 (AFC) - 機場北消防局 ANFS A-Crew.</p>
     </footer>
 
     <script>
@@ -424,7 +478,6 @@
             const serialNum = document.getElementById('serialNum').value;
             const name = document.getElementById('name').value;
             
-            // 檢查機制：如果有填數量，就必須填寫碼數
             for (let i = 1; i <= 18; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
                 const size = document.getElementById(`size_${i}`).value.trim();
@@ -432,11 +485,11 @@
                 if (qty > 0 && size === "") {
                     alert("⚠️ 請檢查：您已選擇了物品數量，但未填寫對應的碼數或腰圍！");
                     document.getElementById(`size_${i}`).focus();
-                    return; // 攔截表單，不讓提交
+                    return; 
                 }
             }
             
-            alert(`【A隊登記成功】\n職級: ${rank}\n編號: ${serialNum}\n姓名: ${name}\n\n已成功驗證限額與碼數！`);
+            alert(`【A隊登記成功】\n職級: ${rank}\n編號: ${serialNum}\n姓名: ${name}\n\n已成功驗證手機版限額與碼數！`);
         }
     </script>
 </body>

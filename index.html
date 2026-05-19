@@ -289,7 +289,7 @@
                 <div class="input-group">
                     <div class="input-field">
                         <label for="rank">職級 (Rank)</label>
-                        <select id="rank" name="entry.1350849206" required>
+                        <select id="rank" name="entry.622938650" required>
                             <option value="">-- 請選擇職級 --</option>
                             <option value="ADO">助理消防區長 (ADO)</option>
                             <option value="SSO">高級消防隊長 (SSO)</option>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="input-field">
                         <label for="serialNum">個人編號 (Serial No.)</label>
-                        <input type="text" id="serialNum" name="entry.492589098" placeholder="例如: 13754" required>
+                        <input type="text" id="serialNum" name="entry.1535640276" placeholder="例如: 13754" required>
                     </div>
                     <div class="input-field">
                         <label for="name">姓名 (Name)</label>
@@ -313,9 +313,7 @@
                 <h3>👕 2. 物資更換申請表格</h3>
                 <div class="limit-hint">💡 填寫數量後請輸入規格/碼數。免填碼數之項目已由系統自動鎖定。</div>
                 
-                <input type="hidden" name="entry.1690858004" id="g_val_1">  <input type="hidden" name="entry.1534063857" id="g_val_2">  <input type="hidden" name="entry.1223946258" id="g_val_3">  <input type="hidden" name="entry.1415082103" id="g_val_4">  <input type="hidden" name="entry.444772186"  id="g_val_5">  <input type="hidden" name="entry.1011867160" id="g_val_6">  <input type="hidden" name="entry.1802996238" id="g_val_7">  <input type="hidden" name="entry.1352458428" id="g_val_8">  <input type="hidden" name="entry.1378855655" id="g_val_9">  <input type="hidden" name="entry.209670605"  id="g_val_10"> <input type="hidden" name="entry.484252562"  id="g_val_11"> <input type="hidden" name="entry.1166308006" id="g_val_12"> <input type="hidden" name="entry.1118617758" id="g_val_13"> <input type="hidden" name="entry.839841381"  id="g_val_14"> <input type="hidden" name="entry.950409713"  id="g_val_15"> 
-
-                <div class="item-grid">
+                <input type="hidden" name="entry.1319414964" id="g_val_1">  <input type="hidden" name="entry.329423944"  id="g_val_2">  <input type="hidden" name="entry.764112732"  id="g_val_3">  <input type="hidden" name="entry.313776618"  id="g_val_4">  <input type="hidden" name="entry.31946879"    id="g_val_5">  <input type="hidden" name="entry.1680887825" id="g_val_6">  <input type="hidden" name="entry.2119658587" id="g_val_7">  <input type="hidden" name="entry.324467834"  id="g_val_8">  <input type="hidden" name="entry.2008498348" id="g_val_9">  <input type="hidden" name="entry.297482357"  id="g_val_10"> <input type="hidden" name="entry.814423862"  id="g_val_11"> <input type="hidden" name="entry.1873438057" id="g_val_12"> <input type="hidden" name="entry.1773403955" id="g_val_13"> <input type="hidden" name="entry.1421766050" id="g_val_14"> <input type="hidden" name="entry.950409713"  id="g_val_15"> <div class="item-grid">
                     <div class="item-row">
                         <span class="item-name">三級長袖襯衫</span>
                         <div class="item-inputs">
@@ -427,7 +425,7 @@
             <div class="form-section">
                 <h3>📝 3. 其他特殊申報或備註</h3>
                 <div class="input-field">
-                    <input type="text" id="otherRemark" name="entry.41680512" placeholder="若有其他特殊需求，請在此填寫...">
+                    <input type="text" id="otherRemark" name="entry.292966988" placeholder="若有其他特殊需求，請在此填寫...">
                 </div>
             </div>
 
@@ -443,6 +441,7 @@
         var submitted = false; 
 
         function validateAndPrepare(event) {
+            // 1. 防漏填驗證
             const skipSizeCheck = [7, 12, 14, 15];
             for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
@@ -455,6 +454,7 @@
                 }
             }
 
+            // 2. 將數值格式化塞入獨立簡答題中
             for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
                 const size = document.getElementById(`size_${i}`).value.trim();
@@ -479,6 +479,7 @@
             return true; 
         }
 
+        // 3. 當背景穿透成功後的回呼
         function handleSuccess() {
             const name = document.getElementById('name').value || "長官/同事";
             alert(`🚒【A隊登記成功】\n同事/長官 ${name}，數據已 100% 成功同步存入雲端後台！`);

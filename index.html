@@ -276,7 +276,7 @@
 
     <section class="hero">
         <h1>A 隊物資申報系統</h1>
-        <p>衣服每項最多 2 件，鞋裝最多 1 對/個。填寫後將自動存入雲端後台。</p>
+        <p>衣服類每項最多 2 件，鞋裝及手套類最多 1 對，襪類最多 5 對。數據將即時同步至雲端。</p>
     </section>
 
     <div class="container">
@@ -308,8 +308,8 @@
             </div>
 
             <div class="form-section">
-                <h3>👕 2. 衣物類更換 (最多 2 件)</h3>
-                <div class="limit-hint">💡 填寫數量後，請務必輸入對應的碼數（如: M, L, 39, 41 等）</div>
+                <h3>👕 2. 物資更換申請表格</h3>
+                <div class="limit-hint">💡 填寫數量後請輸入規格/碼數。免填碼數之項目已由系統自動鎖定。</div>
                 <div class="item-grid">
                     <div class="item-row">
                         <span class="item-name">三級長袖襯衫</span>
@@ -321,106 +321,106 @@
                     <div class="item-row">
                         <span class="item-name">藍斜西褲</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_3">
-                            <input type="text" class="item-size" placeholder="腰圍" id="size_3">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_2">
+                            <input type="text" class="item-size" placeholder="腰圍" id="size_2">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">工作汗衣</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_3">
+                            <input type="text" class="item-size" placeholder="碼數" id="size_3">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">藍色運動襯衫 (背心)</span>
                         <div class="item-inputs">
                             <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_4">
                             <input type="text" class="item-size" placeholder="碼數" id="size_4">
                         </div>
                     </div>
                     <div class="item-row">
-                        <span class="item-name">藍色運動襯衫 (背心)</span>
+                        <span class="item-name">藍色運動襯衫 (長袖)</span>
                         <div class="item-inputs">
                             <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_5">
                             <input type="text" class="item-size" placeholder="碼數" id="size_5">
                         </div>
                     </div>
                     <div class="item-row">
-                        <span class="item-name">藍色運動襯衫 (長袖)</span>
+                        <span class="item-name">運動短褲</span>
                         <div class="item-inputs">
                             <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_6">
                             <input type="text" class="item-size" placeholder="碼數" id="size_6">
                         </div>
                     </div>
                     <div class="item-row">
-                        <span class="item-name">運動短褲</span>
-                        <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_7">
-                            <input type="text" class="item-size" placeholder="碼數" id="size_7">
-                        </div>
-                    </div>
-                    <div class="item-row">
                         <span class="item-name">備用袋 (綠色)</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_10">
-                            <input type="text" class="item-size" placeholder="數量" id="size_10" value="N/A" readonly style="background:#444; color:#aaa;">
+                            <input type="number" class="item-qty" min="0" max="2" value="0" id="qty_7">
+                            <input type="text" class="item-size" value="N/A" readonly style="background:#444; color:#aaa;" id="size_7">
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>🥾 3. 鞋類及防護裝備類 (最多 1 對/個)</h3>
-                <div class="limit-hint">💡 鞋類請填鞋號（如: 8, 42），裝備請填寫對應規格或填「要」</div>
-                <div class="item-grid">
                     <div class="item-row">
                         <span class="item-name">跑鞋</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_12">
-                            <input type="text" class="item-size" placeholder="鞋碼" id="size_12">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_8">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_8">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">消防水靴</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_13">
-                            <input type="text" class="item-size" placeholder="鞋碼" id="size_13">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_9">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_9">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">黑皮鞋</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_14">
-                            <input type="text" class="item-size" placeholder="鞋碼" id="size_14">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_10">
+                            <input type="text" class="item-size" placeholder="鞋碼" id="size_10">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">抗火手套</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_15">
-                            <input type="text" class="item-size" placeholder="手掌碼" id="size_15">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_11">
+                            <input type="text" class="item-size" placeholder="手掌碼" id="size_11">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">電筒</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_16">
-                            <input type="text" class="item-size" placeholder="備註" id="size_16">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_12">
+                            <input type="text" class="item-size" value="N/A" readonly style="background:#444; color:#aaa;" id="size_12">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">攀山手套</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_17">
-                            <input type="text" class="item-size" placeholder="手掌碼" id="size_17">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_13">
+                            <input type="text" class="item-size" placeholder="手掌碼" id="size_13">
                         </div>
                     </div>
                     <div class="item-row">
                         <span class="item-name">手提工具袋 (藍色)</span>
                         <div class="item-inputs">
-                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_18">
-                            <input type="text" class="item-size" placeholder="備註" id="size_18">
+                            <input type="number" class="item-qty" min="0" max="1" value="0" id="qty_14">
+                            <input type="text" class="item-size" value="N/A" readonly style="background:#444; color:#aaa;" id="size_14">
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">黑襪</span>
+                        <div class="item-inputs">
+                            <input type="number" class="item-qty" min="0" max="5" value="0" id="qty_15">
+                            <input type="text" class="item-size" value="N/A" readonly style="background:#444; color:#aaa;" id="size_15">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-section">
-                <h3>📝 4. 其他特殊申報或備註</h3>
+                <h3>📝 3. 其他特殊申報或備註</h3>
                 <div class="input-field">
                     <input type="text" id="otherRemark" placeholder="若有其他特殊需求，請在此填寫...">
                 </div>
@@ -442,72 +442,71 @@
             const serialNum = document.getElementById('serialNum').value;
             const name = document.getElementById('name').value;
             
-            // 1. 防漏填安全驗證
-            for (let i = 1; i <= 18; i++) {
+            // 1. 防漏填安全驗證 (自動跳過免填規格/碼數的項目 7, 12, 14, 15)
+            const skipSizeCheck = [7, 12, 14, 15];
+            for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
                 const size = document.getElementById(`size_${i}`).value.trim();
                 
-                if (qty > 0 && size === "" && i !== 10) { 
+                if (qty > 0 && size === "" && !skipSizeCheck.includes(i)) { 
                     alert("⚠️ 請檢查：您已選擇了物品數量，但未填寫對應的碼數或腰圍！");
                     document.getElementById(`size_${i}`).focus();
                     return; 
                 }
             }
             
-            // 2. 顯示提交中狀態，避免重複點擊
+            // 2. 防止重複連擊
             const submitBtn = document.querySelector('.submit-btn');
             submitBtn.innerText = "正在上傳雲端數據...";
             submitBtn.disabled = true;
 
-            // 3. 準備打包對接 Google 表單後台
+            // 3. 背景封包發送至最新的 Google 表單
             const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfakDWJQVI9EJgDsFT-Ko3VU9PTQ6Znn1mNNd9WU7h7xNAGmA/formResponse";
             const formData = new URLSearchParams();
             
+            // 申報人資料欄位對應
             formData.append("entry.1350849206", rank);
             formData.append("entry.492589098", serialNum);
             formData.append("entry.747990151", name);
             
-            // 4. 對接 18 項裝備代碼的對應表
+            // 🔍 精準映射 15 項最優化欄位後台 ID (2026 最新校正版)
             const entryMap = {
-                1: "entry.1706144883",  // 二級長袖襯衫
-                2: "entry.1697205421",  // 二級短袖襯衫
-                3: "entry.1534063857",  // 藍斜西褲
-                4: "entry.1223946258",  // 工作汗衣
-                5: "entry.1415082103",  // 藍色運動襯衫(背心)
-                6: "entry.444772186",   // 藍色運動襯衫(長袖)
-                7: "entry.1011867160",  // 運動短褲
-                8: "entry.110298016",   // 冬服
-                9: "entry.1264639999",  // 冬毛衣
-                10: "entry.1802996238", // 備用袋(綠色)
-                11: "entry.244304899",  // 白鞋
-                12: "entry.1352458428", // 跑鞋
-                13: "entry.847524278",  // 消防膠靴
-                14: "entry.1848525381", // 馬皮鞋
-                15: "entry.484252562",  // 抗火手套
-                16: "entry.699321350",  // 防爆電筒
-                17: "entry.1118617758", // 攀山手套
-                18: "entry.2064973347"  // 手提工具袋
+                1: "entry.1706144883",  // 三級長袖襯衫碼數
+                2: "entry.1534063857",  // 藍斜西褲腰圍
+                3: "entry.1223946258",  // 工作汗衣碼數
+                4: "entry.1415082103",  // 藍色運動襯衫(背心)碼數
+                5: "entry.444772186",   // 藍色運動襯衫(長袖)碼數
+                6: "entry.1011867160",  // 運動短褲碼數
+                7: "entry.1802996238",  // 備用袋(綠色)數量
+                8: "entry.1352458428",  // 跑鞋鞋碼
+                9: "entry.847524278",   // 消防水靴鞋碼
+                10: "entry.1848525381", // 黑皮鞋鞋碼
+                11: "entry.484252562",  // 抗火手套手掌碼
+                12: "entry.699321350",  // 電筒備註
+                13: "entry.1118617758", // 攀山手套手掌碼
+                14: "entry.2064973347", // 手提工具袋(藍色)備註
+                15: "entry.1424911228"  // 黑襪數量
             };
 
-            for (let i = 1; i <= 18; i++) {
+            for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
                 const size = document.getElementById(`size_${i}`).value.trim();
                 
                 if (qty > 0) {
-                    if (i === 10) {
-                        formData.append(entryMap[i], `${qty}個`);
+                    if (skipSizeCheck.includes(i)) {
+                        formData.append(entryMap[i], `${qty}個/對`);
                     } else {
                         formData.append(entryMap[i], `${qty}件/對 (碼數: ${size})`);
                     }
                 } else {
-                    formData.append(entryMap[i], ""); // 沒選就不填
+                    formData.append(entryMap[i], ""); // 沒選填就不傳送數據，保持後台清爽
                 }
             }
             
-            // 5. 備註欄代碼
+            // 其他特殊申報備註欄位
             formData.append("entry.41680512", document.getElementById('otherRemark').value);
 
-            // 6. 發送異步請求 (背景傳輸)
+            // 4. 背景 AJAX 傳輸
             fetch(googleFormUrl, {
                 method: "POST",
                 mode: "no-cors",
@@ -515,8 +514,13 @@
                 body: formData.toString()
             })
             .then(() => {
-                alert(`🚒【A隊登記成功】\n手足/長官 ${name}，您的制服裝備更換數據已成功存入雲端後台！`);
-                document.getElementById('uniformForm').reset(); // 成功後清空表單
+                alert(`🚒【A隊登記成功】\n手足/長官 ${name}，數據已精準同步存入雲端後台！`);
+                document.getElementById('uniformForm').reset(); 
+                // 恢復唯讀輸入框的 N/A 狀態
+                document.getElementById('size_7').value = "N/A";
+                document.getElementById('size_12').value = "N/A";
+                document.getElementById('size_14').value = "N/A";
+                document.getElementById('size_15').value = "N/A";
             })
             .catch(err => {
                 alert("❌ 數據發送出錯，請檢查網絡連線或聯絡管理員。");

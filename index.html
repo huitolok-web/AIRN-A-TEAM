@@ -279,15 +279,17 @@
         <p>衣服類每項最多 2 件，鞋裝及手套類最多 1 對，襪類最多 5 對。數據將即時同步至雲端。</p>
     </section>
 
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { handleSuccess(); }"></iframe>
+
     <div class="container">
-        <form class="form-container" id="uniformForm" onsubmit="handleSubmit(event)">
+        <form class="form-container" id="uniformForm" method="POST" target="hidden_iframe" action="https://docs.google.com/forms/d/e/1FAIpQLSfakDWJQVI9EJgDsFT-Ko3VU9PTQ6Znn1mNNd9WU7h7xNAGmA/formResponse" onsubmit="return validateAndPrepare(event);">
             
             <div class="form-section">
                 <h3>👤 1. 申報人資料</h3>
                 <div class="input-group">
                     <div class="input-field">
                         <label for="rank">職級 (Rank)</label>
-                        <select id="rank" required>
+                        <select id="rank" name="entry.1350849206" required>
                             <option value="">-- 請選擇職級 --</option>
                             <option value="ADO">助理消防區長 (ADO)</option>
                             <option value="SSO">高級消防隊長 (SSO)</option>
@@ -298,11 +300,11 @@
                     </div>
                     <div class="input-field">
                         <label for="serialNum">個人編號 (Serial No.)</label>
-                        <input type="text" id="serialNum" placeholder="例如: 13754" required>
+                        <input type="text" id="serialNum" name="entry.492589098" placeholder="例如: 13754" required>
                     </div>
                     <div class="input-field">
                         <label for="name">姓名 (Name)</label>
-                        <input type="text" id="name" placeholder="英文/中文姓名" required>
+                        <input type="text" id="name" name="entry.747990151" placeholder="英文/中文姓名" required>
                     </div>
                 </div>
             </div>
@@ -310,6 +312,23 @@
             <div class="form-section">
                 <h3>👕 2. 物資更換申請表格</h3>
                 <div class="limit-hint">💡 填寫數量後請輸入規格/碼數。免填碼數之項目已由系統自動鎖定。</div>
+                
+                <input type="hidden" name="entry.1706144883" id="g_val_1">
+                <input type="hidden" name="entry.1534063857" id="g_val_2">
+                <input type="hidden" name="entry.1223946258" id="g_val_3">
+                <input type="hidden" name="entry.1415082103" id="g_val_4">
+                <input type="hidden" name="entry.444772186"  id="g_val_5">
+                <input type="hidden" name="entry.1011867160" id="g_val_6">
+                <input type="hidden" name="entry.1802996238" id="g_val_7">
+                <input type="hidden" name="entry.1352458428" id="g_val_8">
+                <input type="hidden" name="entry.847524278"  id="g_val_9">
+                <input type="hidden" name="entry.1848525381" id="g_val_10">
+                <input type="hidden" name="entry.484252562"  id="g_val_11">
+                <input type="hidden" name="entry.699321350"  id="g_val_12">
+                <input type="hidden" name="entry.1118617758" id="g_val_13">
+                <input type="hidden" name="entry.2064973347" id="g_val_14">
+                <input type="hidden" name="entry.1424911228" id="g_val_15">
+
                 <div class="item-grid">
                     <div class="item-row">
                         <span class="item-name">三級長袖襯衫</span>
@@ -422,7 +441,7 @@
             <div class="form-section">
                 <h3>📝 3. 其他特殊申報或備註</h3>
                 <div class="input-field">
-                    <input type="text" id="otherRemark" placeholder="若有其他特殊需求，請在此填寫...">
+                    <input type="text" id="otherRemark" name="entry.41680512" placeholder="若有其他特殊需求，請在此填寫...">
                 </div>
             </div>
 
@@ -435,14 +454,10 @@
     </footer>
 
     <script>
-        function handleSubmit(event) {
-            event.preventDefault(); 
-            
-            const rank = document.getElementById('rank').value;
-            const serialNum = document.getElementById('serialNum').value;
-            const name = document.getElementById('name').value;
-            
-            // 1. 防漏填安全驗證 (自動跳過免填規格/碼數的項目 7, 12, 14, 15)
+        var submitted = false; // 狀態標記
+
+        function validateAndPrepare(event) {
+            // 1. 防漏填安全驗證 (跳過免填欄位 7, 12, 14, 15)
             const skipSizeCheck = [7, 12, 14, 15];
             for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
@@ -451,85 +466,54 @@
                 if (qty > 0 && size === "" && !skipSizeCheck.includes(i)) { 
                     alert("⚠️ 請檢查：您已選擇了物品數量，但未填寫對應的碼數或腰圍！");
                     document.getElementById(`size_${i}`).focus();
-                    return; 
+                    return false; // 阻擋表單送出
                 }
             }
-            
-            // 2. 防止重複連擊
-            const submitBtn = document.querySelector('.submit-btn');
-            submitBtn.innerText = "正在上傳雲端數據...";
-            submitBtn.disabled = true;
 
-            // 3. 背景封包發送至最新的 Google 表單
-            const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfakDWJQVI9EJgDsFT-Ko3VU9PTQ6Znn1mNNd9WU7h7xNAGmA/formResponse";
-            const formData = new URLSearchParams();
-            
-            // 申報人資料欄位對應
-            formData.append("entry.1350849206", rank);
-            formData.append("entry.492589098", serialNum);
-            formData.append("entry.747990151", name);
-            
-            // 🔍 精準映射 15 項最優化欄位後台 ID (2026 最新校正版)
-            const entryMap = {
-                1: "entry.1706144883",  // 三級長袖襯衫碼數
-                2: "entry.1534063857",  // 藍斜西褲腰圍
-                3: "entry.1223946258",  // 工作汗衣碼數
-                4: "entry.1415082103",  // 藍色運動襯衫(背心)碼數
-                5: "entry.444772186",   // 藍色運動襯衫(長袖)碼數
-                6: "entry.1011867160",  // 運動短褲碼數
-                7: "entry.1802996238",  // 備用袋(綠色)數量
-                8: "entry.1352458428",  // 跑鞋鞋碼
-                9: "entry.847524278",   // 消防水靴鞋碼
-                10: "entry.1848525381", // 黑皮鞋鞋碼
-                11: "entry.484252562",  // 抗火手套手掌碼
-                12: "entry.699321350",  // 電筒備註
-                13: "entry.1118617758", // 攀山手套手掌碼
-                14: "entry.2064973347", // 手提工具袋(藍色)備註
-                15: "entry.1424911228"  // 黑襪數量
-            };
-
+            // 2. 將網頁欄位的值動態格式化，並寫入隱藏的正式 Google Form Name 欄位中
             for (let i = 1; i <= 15; i++) {
                 const qty = parseInt(document.getElementById(`qty_${i}`).value) || 0;
                 const size = document.getElementById(`size_${i}`).value.trim();
+                const targetInput = document.getElementById(`g_val_${i}`);
                 
                 if (qty > 0) {
                     if (skipSizeCheck.includes(i)) {
-                        formData.append(entryMap[i], `${qty}個/對`);
+                        targetInput.value = `${qty}個/對`;
                     } else {
-                        formData.append(entryMap[i], `${qty}件/對 (碼數: ${size})`);
+                        targetInput.value = `${qty}件/對 (碼數: ${size})`;
                     }
                 } else {
-                    formData.append(entryMap[i], ""); // 沒選填就不傳送數據，保持後台清爽
+                    targetInput.value = ""; // 沒選就不填
                 }
             }
-            
-            // 其他特殊申報備註欄位
-            formData.append("entry.41680512", document.getElementById('otherRemark').value);
 
-            // 4. 背景 AJAX 傳輸
-            fetch(googleFormUrl, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: formData.toString()
-            })
-            .then(() => {
-                alert(`🚒【A隊登記成功】\n手足/長官 ${name}，數據已精準同步存入雲端後台！`);
-                document.getElementById('uniformForm').reset(); 
-                // 恢復唯讀輸入框的 N/A 狀態
-                document.getElementById('size_7').value = "N/A";
-                document.getElementById('size_12').value = "N/A";
-                document.getElementById('size_14').value = "N/A";
-                document.getElementById('size_15').value = "N/A";
-            })
-            .catch(err => {
-                alert("❌ 數據發送出錯，請檢查網絡連線或聯絡管理員。");
-                console.error(err);
-            })
-            .finally(() => {
-                submitBtn.innerText = "確認並提交登記（A隊）";
-                submitBtn.disabled = false;
-            });
+            // 3. 改變按鈕文字
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.innerText = "正在強制同步至雲端...";
+            submitBtn.disabled = true;
+            
+            submitted = true; // 開啟成功標記
+            return true; // 允許表單利用 iframe 進行無感傳送
+        }
+
+        // 4. 當隱藏的 iframe 收到 Google 響應（無論 CORS 如何，代表資料已強行送出）
+        function handleSuccess() {
+            const name = document.getElementById('name').value || "長官/手足";
+            alert(`🚒【A隊登記成功】\n手足/長官 ${name}，數據已強行穿透並同步至雲端後台！`);
+            
+            // 重設表單與唯讀狀態
+            document.getElementById('uniformForm').reset(); 
+            document.getElementById('size_7').value = "N/A";
+            document.getElementById('size_12').value = "N/A";
+            document.getElementById('size_14').value = "N/A";
+            document.getElementById('size_15').value = "N/A";
+            
+            // 恢復按鈕
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.innerText = "確認並提交登記（A隊）";
+            submitBtn.disabled = false;
+            
+            submitted = false; // 重設標記
         }
     </script>
 </body>
